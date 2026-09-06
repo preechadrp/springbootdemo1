@@ -29,7 +29,7 @@
   แบบใช้ @ConfigurationProperties(prefix = "property")  // property.name = value
   
   ลำดับการอ่านค่า config
-    -D > Environment Varible > .properties/.yml > (./config > ./ > src/main/resources)
+    -D > Environment Varible > application.properties/.yml > (./config > ./ > src/main/resources)
     ตัวอย่าง
     1. .properties เช่น abc.companyTaxId=mycomp 
     2. Environment Varible เช่น ABC_COMPANY_TAX_ID=mycomp
