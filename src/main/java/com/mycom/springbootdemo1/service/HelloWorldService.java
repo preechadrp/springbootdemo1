@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class HelloWorldService {
 
+	//private static final Logger logx = LoggerFactory.getLogger(HelloWorldService.class);
+
 	@Value("${app.common.name}")
 	private String commonName;
 
