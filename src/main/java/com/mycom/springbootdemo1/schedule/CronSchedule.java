@@ -20,6 +20,7 @@ public class CronSchedule {
 	}
 
 	@Scheduled(cron = "* * 0 * * MON,WED,FRI")
+	//@Scheduled(cron = "${app.schedule.cron-run3}")
 	public void run3() {
 		log.info("CronSchedule is running... at 0.00 at monday, wednesday, friday");
 	}
