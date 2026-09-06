@@ -14,9 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 public class CommonProperties {
 
 	private String name;
-	private String description;
-	private String version;
 	private String db1Url;
+	private String db1DriverClassName;
 	private String db1Username;
 	private String db1Password;
 	private String proxyHost;
@@ -28,9 +27,8 @@ public class CommonProperties {
 	public void printProperties() {
 		log.info("Common Properties:");
 		log.info("Name: {}", name);
-		log.info("Description: {}", description);
-		log.info("Version: {}", version);
 		log.info("DB1 URL: {}", db1Url);
+		log.info("DB1 DriverClassName: {}", db1DriverClassName);
 		log.info("DB1 Username: {}", db1Username);
 		log.info("DB1 Password: {}", db1Password);
 		log.info("Proxy Host: {}", proxyHost);
