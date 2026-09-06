@@ -3,7 +3,7 @@ package com.mycom.springbootdemo1.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.mycom.springbootdemo1.component.properties.CommonProperties;
+import com.mycom.springbootdemo1.component.CommonProperties;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,12 +1,12 @@
-package com.mycom.springbootdemo1.component.schedule;
+package com.mycom.springbootdemo1.schedule;
 
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Component
+@Service
 public class CronSchedule {
 
 	@Scheduled(cron = "0/5 * * * * *")

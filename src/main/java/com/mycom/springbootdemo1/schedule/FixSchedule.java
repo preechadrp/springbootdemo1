@@ -1,14 +1,14 @@
-package com.mycom.springbootdemo1.component.schedule;
+package com.mycom.springbootdemo1.schedule;
 
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Component
+@Service
 public class FixSchedule {
 
 	@Scheduled(fixedDelay = 3, initialDelay = 1, timeUnit = TimeUnit.SECONDS)
