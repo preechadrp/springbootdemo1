@@ -1,0 +1,57 @@
+###
+get http://localhost:8080/hello1
+
+###
+POST http://localhost:8080/hello2
+
+###
+get http://localhost:8080/user
+
+###
+POST http://localhost:8080/user
+content-type: application/json;charset=UTF-8
+
+{
+  "userName": "postก",
+  "email": "Joe@email.com",
+  "password": "12345679"
+}
+
+### test exception
+get http://localhost:8080/custom-exception
+
+### ===== custorder
+get http://localhost:8080/custorder
+
+###
+get http://localhost:8080/custorder/id/3
+
+###
+get http://localhost:8080/custorder/Customer1
+
+###
+post http://localhost:8080/custorder-find-by-customer-name
+content-type: application/json;charset=UTF-8
+
+{
+  "customerName": "Customer4"
+}
+
+### insert new order
+post http://localhost:8080/custorder
+content-type: application/json;charset=UTF-8
+
+{
+  "orderId": 40,
+  "customerName": "Customer40",
+  "totalAmount": 4500.00,
+  "insertDateTime": "2026-09-05 19:41:30.085"
+}
+
+### ===== order-items
+get http://localhost:8080/order-items
+###
+get http://localhost:8080/order-items/6/6
+###
+get http://localhost:8080/order-items/product/Product2
+

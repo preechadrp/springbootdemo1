@@ -1,0 +1,110 @@
+=========
+package com.example.dto;
+
+//สร้างไว้ที่ไหนก็ได้ (เช่น ในโฟลเดอร์ dto หรือวางไว้ใต้ Product.java ก็ได้)
+public record ProductSummary(Long id, String name) {
+}
+
+=========
+package com.example.model;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+
+@ToString
+@Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Entity
+@Table(name = "PRODUCT")
+public class Product {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 1. กำหนดให้เป็น Auto Increment
+    @Column(comment = "รหัสสินค้า") // 2. ใช้ attribute comment ของมาตรฐาน JPA แทน
+    Long id;
+
+    // 2. นำ comment เข้ามารวมใน @Column ของ JPA ได้เลย
+    @Column(length = 100, nullable = false, comment = "ชื่อสินค้า") // 3. กำหนดความยาวของ String เป็น 100 และไม่อนุญาตให้เป็น null
+    String name;
+
+    @Column(precision = 18, scale = 2, comment = "ราคาสินค้า") // 4. กำหนดความยาวและทศนิยมเพื่อให้ตารางสร้างเป็น DECIMAL(18,2)
+    BigDecimal price;
+
+    //ปกติ jpa จะแปลงและจะหาชื่อ insert_date_time เพราะมันจะทำการแปลงชื่อฟิลด์จาก camel case เป็น snake_case โดยอัตโนมัติ
+    //ถ้า config เพิ่มเติมใน application.properties 
+    //ด้วย spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl  แต่จะมีผลทั้งระบบ
+    //โดย
+    //   ถ้าใส่ @Column(name = "insert_dateTime") ระบบจะใช้ชื่อคอลัมน์ insert_dateTime
+    //   แต่ถ้าไม่ใส่ @Column(name = "insert_dateTime") ระบบจะใช้ชื่อคอลัมน์ insertDateTime
+    @Column(name = "insert_date_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    LocalDateTime insertDateTime;
+}
+
+=========
+package com.example.repository;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query; // <-- เปลี่ยนมาใช้ org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.example.dto.ProductSummary;
+import com.example.model.Product;
+
+import jakarta.transaction.Transactional;
+
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Long> {
+
+    // Spring Data จะเดา SQL ให้จากชื่อ Method (Query Method)
+    List<Product> findByName(String name);
+
+    // เขียน SQL เองแบบตรงไปตรงมา (Native SQL)
+    @Query(value = "SELECT * FROM PRODUCT WHERE price > :minPrice", nativeQuery = true)
+    List<Product> findExpensiveProductsByNativeSql(@Param("minPrice") BigDecimal minPrice);
+
+    @Query("SELECT p FROM Product p WHERE p.price > :minPrice")
+    List<Product> findExpensiveProducts(@Param("minPrice") BigDecimal minPrice);
+
+    //update โดยใช้ Native SQL
+    // ใส่ clearAutomatically = true เพื่อไม่ให้ค่าเก่าค้างในหน่วยความจำหลังจากอัปเดต
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE PRODUCT SET price = :newPrice WHERE id = :id", nativeQuery = true)
+    int updatePriceByNativeSql(@Param("id") Long id, @Param("newPrice") BigDecimal newPrice);
+
+    //update โดยใช้ JPQL
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Product p SET p.price = :newPrice WHERE p.id = :id")
+    int updatePrice(@Param("id") Long id, @Param("newPrice") BigDecimal newPrice);
+
+    // เปลี่ยนมาใช้ JPQL (Query ระดับ Object) เพื่อดึงข้อมูลใส่ Record/DTO โดยตรง
+    // (สมมติว่า ProductSummary อยู่ใน package com.example.dto)
+    // สังเกตว่าใน JPQL เราจะอ้างอิงชื่อคลาส "Product" แทนชื่อตาราง
+    @Query("SELECT new com.example.dto.ProductSummary(p.id, p.name) FROM Product p")
+    List<ProductSummary> findAllProductSummaries();
+}
