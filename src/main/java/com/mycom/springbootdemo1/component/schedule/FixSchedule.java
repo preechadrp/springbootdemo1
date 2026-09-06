@@ -9,7 +9,14 @@ import org.springframework.stereotype.Component;
 public class FixSchedule {
 
 	@Scheduled(fixedDelay = 3, initialDelay = 1, timeUnit = TimeUnit.SECONDS)
-	public void run() {
+	public void runFixedDelay() {
+		//งานเสร็จ → รอ 3 วินาที → รอบใหม่
 		System.out.println("FixedDelaySchedule is running...");
+	}
+
+	@Scheduled(fixedRate = 3, initialDelay = 1, timeUnit = TimeUnit.SECONDS)
+	public void runFixedRate() {
+		//พยายามให้แต่ละรอบเริ่มห่างกัน 3 วินาที แต่ก็ต้องรอให้งานเสร็จ
+		System.out.println("FixedRateSchedule is running...");
 	}
 }
