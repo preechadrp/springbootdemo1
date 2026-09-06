@@ -44,9 +44,9 @@
   @Bean/CommandLineRunner
 
 - schedule
-  แบบ default  (fixedRate/fixedDelay/initialDelay)
-  แบบ cron expression (0 0 0 * * ? = ทุกๆ วันเวลาเที่ยงคืน)
-  แบบ cron expression (0 0 0 1 * ? = ทุกๆ เดือนเวลาเที่ยงคืนของวันแรกของเดือน)
+  แบบ fixedRate
+  แบบ fixedDelay
+  แบบ cron
 
 - spring security  //TODO
   jwt  (jason web token)
