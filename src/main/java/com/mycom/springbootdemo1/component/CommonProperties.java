@@ -4,6 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,7 +25,7 @@ public class CommonProperties {
 	private String proxyPassword;
 
 	@PostConstruct
-	public void printProperties() {
+	public void init() {
 		log.info("Common Properties:");
 		log.info("Name: {}", name);
 		log.info("DB1 URL: {}", db1Url);
@@ -35,5 +36,10 @@ public class CommonProperties {
 		log.info("Proxy Port: {}", proxyPort);
 		log.info("Proxy Username: {}", proxyUsername);
 		log.info("Proxy Password: {}", proxyPassword);
+	}
+
+	@PreDestroy
+	public void stop() {
+		log.info("@PreDestroy");
 	}
 }
