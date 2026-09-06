@@ -5,18 +5,19 @@
   kebab case = company-tax-id  ขีดกลาง     (map กับ application.properties/yml)
   snake case = company_tax_id  ใช้ขีดล่าง     (map ชื่อตัวแปรไปยังชื่อฟิลด์ใน table ของ database)
   pascal case = CompanyTaxId   เริ่มด้วยตัวพิมพ์ใหญ่และแบ่งคำด้วยตัวใหญ่  (ใช้ตั้งชื่อ class)
-  upper snake case = COMPANY_TAX_ID
+  upper snake case = COMPANY_TAX_ID  ใช้สร้างตัวแปรใน environment varible ใน docker-compose.yml
   
 - การเริ่มสร้าง project ด้วย springboot
   1. https://start.spring.io/
   2. eclipse plugins (ติดตั้ง springboot tool) 
-     spring tools  (https://spring.io/tools#eclipse เป็นของ vmware ที่เอา eclipse+springboot plugins พร้อมใช้งาน)
+  3. spring tools  (https://spring.io/tools#eclipse เป็นของ vmware ที่เอา eclipse+springboot plugins พร้อมใช้งาน)
      
 - lombok plugins for eclipse
 
-- api
-  controller
+- เริ่ม api
+  controller  (get,post)
   service
+  validate
   logback
   global exception handler
   component

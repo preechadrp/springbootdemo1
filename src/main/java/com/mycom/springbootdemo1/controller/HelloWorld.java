@@ -22,6 +22,7 @@ public class HelloWorld {
 
 	@GetMapping("/hello1")
 	public String hello1() {
+		//return "Hello World!";
 		return this.helloWorldService.hello();
 	}
 
