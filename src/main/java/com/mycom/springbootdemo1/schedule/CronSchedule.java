@@ -11,17 +11,32 @@ public class CronSchedule {
 
 	@Scheduled(cron = "0/5 * * * * *")
 	public void run() {
-		log.info("CronSchedule is running...");
+		try {
+			log.info("CronSchedule is running...");
+			//..
+		} catch (Exception e) {
+			log.error("CronSchedule Error : {}", e.getMessage(), e);
+		}
 	}
 
 	@Scheduled(cron = "* * 0 * * MON-FRI")
 	public void run2() {
-		log.info("CronSchedule is running... at 0.00 every day between monday and friday");
+		try {
+			log.info("CronSchedule is running... at 0.00 every day between monday and friday");
+			//..
+		} catch (Exception e) {
+			log.error("CronSchedule Error : {}", e.getMessage(), e);
+		}
 	}
 
 	@Scheduled(cron = "* * 0 * * MON,WED,FRI")
 	//@Scheduled(cron = "${app.schedule.cron-run3}")
 	public void run3() {
-		log.info("CronSchedule is running... at 0.00 at monday, wednesday, friday");
+		try {
+			log.info("CronSchedule is running... at 0.00 at monday, wednesday, friday");
+			//..
+		} catch (Exception e) {
+			log.error("CronSchedule Error : {}", e.getMessage(), e);
+		}
 	}
 }
