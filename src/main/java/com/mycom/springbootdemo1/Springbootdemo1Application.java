@@ -31,6 +31,7 @@ public class Springbootdemo1Application {
 						.setOrderId(idx)
 						.setCustomerName("Customer" + idx)
 						.setTotalAmount(new BigDecimal(1000.00 * idx))
+						.setOrderDate(java.time.LocalDate.now())
 						.setInsertDateTime(java.time.LocalDateTime.now());
 
 				custOrderRepository.save(custOrder);
