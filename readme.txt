@@ -14,6 +14,12 @@
      
 - lombok plugins for eclipse
 
+- Spring Boot Bean Annotations
+  @Component
+  @Service
+  @Repository
+  @Controller / @RestController
+  
 - เริ่ม api
   controller  (get,post)
   service
@@ -48,7 +54,7 @@
   แบบ fixedRate
   แบบ fixedDelay
   แบบ cron
-
+  
 - spring security  //TODO
   jwt  (jason web token)
   nimbus library  (รองรับการทำงาน jwt,jws)
