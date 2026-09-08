@@ -8,11 +8,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.mycom.springbootdemo1.dto.CustOrderSummary;
 import com.mycom.springbootdemo1.entity.CustOrder;
 import com.mycom.springbootdemo1.entity.OrderItem;
 import com.mycom.springbootdemo1.repository.CustOrderRepository;
 import com.mycom.springbootdemo1.repository.OrderItemRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @EnableScheduling
 @SpringBootApplication
 public class Springbootdemo1Application {
@@ -24,7 +28,7 @@ public class Springbootdemo1Application {
 	@Bean
 	CommandLineRunner custOrder(CustOrderRepository custOrderRepository) {
 		return (args) -> {
-			System.out.println("Spring Boot Application is running...");
+			log.info("Spring Boot Application is running...");
 
 			for (int idx = 1; idx <= 5; idx++) {
 				CustOrder custOrder = new CustOrder()
@@ -34,7 +38,12 @@ public class Springbootdemo1Application {
 						.setOrderDate(java.time.LocalDate.now())
 						.setInsertDateTime(java.time.LocalDateTime.now());
 
-				custOrderRepository.save(custOrder);
+				custOrderRepository.saveAndFlush(custOrder);
+			}
+
+			var summarys = custOrderRepository.findAllProductSummaries();
+			for (CustOrderSummary summary : summarys) {
+				log.info("data: {}", summary.toString());
 			}
 
 		};
