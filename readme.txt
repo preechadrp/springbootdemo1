@@ -49,6 +49,9 @@
   dao
   jsonNode/Jackson
   @Bean/CommandLineRunner
+  
+- junit
+  @SpringBootTest  
 
 - schedule
   แบบ fixedRate

@@ -10,9 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.mycom.springbootdemo1.dto.CustOrderSummary;
 import com.mycom.springbootdemo1.entity.CustOrder;
-import com.mycom.springbootdemo1.entity.OrderItem;
 import com.mycom.springbootdemo1.repository.CustOrderRepository;
-import com.mycom.springbootdemo1.repository.OrderItemRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,24 +42,6 @@ public class Springbootdemo1Application {
 			var summarys = custOrderRepository.findAllProductSummaries();
 			for (CustOrderSummary summary : summarys) {
 				log.info("data: {}", summary.toString());
-			}
-
-		};
-	}
-
-	@Bean
-	CommandLineRunner orderItem(OrderItemRepository orderItemRepository) {
-		return (args) -> {
-			System.out.println("Spring Boot Application is running...");
-
-			for (int idx = 1; idx <= 5; idx++) {
-				OrderItem orderItem = new OrderItem()
-						.setOrderId(idx)
-						.setItemNo(idx)
-						.setProductName("Product" + idx)
-						.setQuantity(10 + idx);
-
-				orderItemRepository.save(orderItem);
 			}
 
 		};
