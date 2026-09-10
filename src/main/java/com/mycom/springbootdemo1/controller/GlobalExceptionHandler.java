@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.mycom.springbootdemo1.dto.ErrorResponseDto;
 import com.mycom.springbootdemo1.exception.CustomException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+	private record ErrorResponseDto(int error_code, String error_message) {
+	};
 
 	// ดักจับ CustomException ที่เราสร้างเอง
 	@ExceptionHandler(CustomException.class)
