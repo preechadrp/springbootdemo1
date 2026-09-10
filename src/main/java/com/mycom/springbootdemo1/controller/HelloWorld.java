@@ -10,7 +10,10 @@ import com.mycom.springbootdemo1.exception.CustomException;
 import com.mycom.springbootdemo1.service.HelloWorldService;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+import tools.jackson.databind.JsonNode;
 
+@Slf4j
 @RestController
 public class HelloWorld {
 
@@ -39,6 +42,12 @@ public class HelloWorld {
 	@PostMapping("/user")
 	public UserDto postUser(@RequestBody @Valid UserDto userDto) {
 		return userDto;
+	}
+
+	@PostMapping("/user-jsonnode")
+	public JsonNode postUserByJsonnode(@RequestBody JsonNode data) {
+		log.info("jsonNode : {}", data.toPrettyString());
+		return data;
 	}
 
 	@GetMapping("/custom-exception")
