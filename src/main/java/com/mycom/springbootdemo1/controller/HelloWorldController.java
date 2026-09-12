@@ -15,11 +15,11 @@ import tools.jackson.databind.JsonNode;
 
 @Slf4j
 @RestController
-public class HelloWorld {
+public class HelloWorldController {
 
 	private final HelloWorldService helloWorldService;
 
-	public HelloWorld(HelloWorldService helloWorldService) {
+	public HelloWorldController(HelloWorldService helloWorldService) {
 		this.helloWorldService = helloWorldService;
 	}
 
